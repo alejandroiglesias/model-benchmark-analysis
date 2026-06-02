@@ -210,24 +210,50 @@ ranked candidate via its SDK/CLI access and explain the access path.
   it rather than asserting it.
 - State the weighting method in plain language. Don't invent false decimals — if
   evidence is thin, say the ranking is approximate.
+- **Build ONE master ranking of all candidates by normalized score.** This single
+  ordered list is the source of truth. The three output lists are just *filtered
+  views* of it (next steps), not independently-built rankings — building them
+  separately is what lets them contradict each other, so don't.
 
 ### 5. Apply the budget filter (for the Budget list)
 
-Read `references/budget-and-free-rules.md` and apply the cap **before** ranking.
-For text/reasoning/coding/agent models a model qualifies only if **both** are true:
-`input ≤ $2.50 / 1M tokens` **AND** `output ≤ $9.00 / 1M tokens`, at standard API
-pricing (not batch/flex/priority discounts). For image and video, first **define
-and state** a per-image/per-edit or per-minute cap, then filter. Rank the survivors
-by the same normalized category score from step 4 — this is "best performers among
-the affordable," not score-per-dollar and not "second-best expensive frontier."
+Read `references/budget-and-free-rules.md` and apply the cap to the **master
+ranking** from step 4. For text/reasoning/coding/agent models a model qualifies
+only if **both** are true: `input ≤ $2.50 / 1M tokens` **AND** `output ≤ $9.00 /
+1M tokens`, at standard API pricing (not batch/flex/priority discounts). For image
+and video, first **define and state** a per-image/per-edit or per-minute cap. Then
+**take the top 5 of the master ranking that pass the cap, in their master-ranking
+order** — this is "best performers among the affordable," not score-per-dollar and
+not "second-best expensive frontier."
 
 ### 6. Apply the free filter (for the Free list)
 
-Keep only models that are genuinely free (per the registries in
-`references/budget-and-free-rules.md`) **and** have a public benchmark for this
-category. Rank by normalized category score. Use reliability, latency, tool-use,
-and platform constraints as tie-breakers. If fewer than 5 qualify, show fewer and
-say so.
+From the **master ranking**, keep only models that are genuinely free (per the
+registries in `references/budget-and-free-rules.md`) **and** have a public benchmark
+for this category, then take the top 5 in master-ranking order. Use reliability,
+latency, tool-use, and platform constraints only as tie-breakers between models the
+master ranking treats as equal. If fewer than 5 qualify, show fewer and say so.
+
+### 6b. Cross-list consistency check
+
+Because all three lists are filtered views of one master ranking, they must agree
+with each other. Before writing output, verify both:
+
+- **Relative order is preserved across lists.** Any two models that appear in more
+  than one list sit in the same relative order in each. If Composer outranks Kimi in
+  Budget, Composer must outrank Kimi everywhere both appear — never the reverse.
+- **Nothing leads a filtered list while wrongly missing from Absolute.** A model in
+  the Budget or Free list has a real raw score in the master ranking. So if that
+  score is high enough to land in the overall top 5, the model **must also appear in
+  the Absolute list**. Concretely: if your top Budget (or Free) model outranks *any*
+  model currently sitting in your Absolute top 5, it belongs in Absolute too — it
+  was wrong to leave it out. (A budget-eligible model legitimately appearing in
+  *both* Absolute and Budget — e.g. Absolute #4 and Budget #1 — is correct and
+  expected; the error is the opposite: high in a filtered list but absent from
+  Absolute.)
+
+If either check fails, you built the lists independently instead of filtering the
+one master ranking — go back to that ranking and re-derive all three from it.
 
 ### 7. Choose the single final pick
 
