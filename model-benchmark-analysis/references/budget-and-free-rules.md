@@ -21,6 +21,11 @@ output_price_per_1M_tokens <= 9.00 USD
 - Use **standard** API prices — not Batch, Flex, priority, or promotional rates.
   If a model is only cheap via a non-standard tier, note that and treat it as not
   qualifying on standard pricing.
+- **Multiple standard tiers:** when a model offers more than one standard usage
+  tier (e.g. a cheaper "standard" and a pricier "fast"), evaluate eligibility on
+  the **cheapest tier that still does the job**. If that tier clears the cap, the
+  model qualifies — note which tier qualifies and which don't (e.g. "Standard
+  $0.50/$2.50 qualifies; Fast $3/$15 does not").
 - This is **not** score-per-dollar, and **not** "the second-best expensive
   frontier models." After filtering, rank survivors by the same normalized
   category score from the main workflow. The list answers: *"Among models clearly

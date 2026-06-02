@@ -14,6 +14,11 @@ state your reasoning if evidence warrants.
 ### 1. Coding
 - **Required:** Artificial Analysis Coding Agent Index, CursorBench (latest), DeepSWE.
 - Also: SWE-Bench(-Pro/Verified), Terminal-Bench, SWE-Atlas, LiveCodeBench.
+- **Watch the two different AA boards.** Artificial Analysis publishes a single-shot
+  **Coding Index** *and* an agentic **Coding Agent Index** — they often crown
+  different leaders. The required one here is the **agentic Coding Agent Index**;
+  treat it as primary and use the single-shot Coding Index only as support. Name
+  which one each figure comes from so they don't get conflated.
 - **Include the latest Cursor Composer version** as a ranked candidate. It has no
   standalone REST API but is usable via the **Cursor SDK/CLI**, so it counts as
   selectable — rank it normally and note the access path. Price-filter it on
