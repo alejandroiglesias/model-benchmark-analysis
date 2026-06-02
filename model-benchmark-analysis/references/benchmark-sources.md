@@ -19,11 +19,12 @@ starting set, not a closed universe — search for newer task-specific boards to
   **MCP Atlas** (real tool-use pass rate over many tasks), plus finance, coding,
   and other domain boards.
 
-> **Heads-up:** Artificial Analysis and OpenRouter rankings are JavaScript-rendered
-> and frequently return no extractable tables via a plain fetch. Use a browser tool
-> if available; otherwise cross-read the same figures from Vellum, BenchLM, Kilo,
-> board-specific sites, and provider pages, and cite whichever source you actually
-> pulled each number from.
+> **Heads-up — these are JavaScript-rendered.** Artificial Analysis and the
+> OpenRouter rankings page load their tables via JS, so a plain fetch returns an
+> empty shell with no data. See **SKILL.md step 3 ("Client-rendered boards")** for
+> the escalation ladder: drive a real browser tool first, then fetch the site's
+> underlying JSON/data endpoint, then a rendering reader proxy, then mirrors — and
+> cite whichever source actually produced each number.
 
 ## Coding / software engineering
 

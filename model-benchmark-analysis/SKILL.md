@@ -116,13 +116,35 @@ Use web search/fetch to pull live figures from:
   `references/budget-and-free-rules.md`).
 - **Current API pricing** pages for budget eligibility.
 
-**Expect client-rendered boards.** Artificial Analysis and the OpenRouter
-rankings page are JavaScript-rendered, so a plain fetch often returns no tables.
-When that happens: use a browser tool if one is available; otherwise fall back to
-reputable mirrors/aggregators (Vellum, BenchLM, Kilo, board-specific sites like
-deepswe.net, and the provider's own pages), and say which source each number came
-from. If you can only get partial data for a required board, note the gap rather
-than inventing numbers.
+**Client-rendered boards: how to actually read them.** Several key boards
+(Artificial Analysis, the OpenRouter rankings page, many arenas) are JavaScript
+single-page apps: a plain HTTP fetch returns the empty HTML shell because the data
+is loaded by JS *after* the page renders. Web-fetch tools generally don't run
+JavaScript, so they see no tables. Work **down this ladder** and record which path
+produced each number:
+
+1. **Drive a real browser if one is connected.** A browser-automation tool (a
+   Chrome MCP, Playwright, computer-use, etc.) loads the page, runs its JS, and
+   lets you read the *rendered* DOM/text — the most faithful option. Detect what's
+   available first; don't assume a browser exists, since this skill also runs
+   headless (weekly automations, subagents).
+2. **Fetch the underlying data endpoint directly.** SPAs pull their numbers from a
+   backend the browser calls in the background — a JSON `/api/...` route, a Next.js
+   `/_next/data/<buildId>/<page>.json` file, or a GraphQL endpoint. Find it (view
+   source, or inspect network requests) and GET that JSON with a plain fetch — no
+   JS engine needed, and the data is already structured. Often the most reliable
+   path.
+3. **Route through a rendering reader proxy.** A server-side reader that executes
+   JS and returns clean text (e.g. prefixing the URL as `https://r.jina.ai/<url>`)
+   can work from a plain fetch. Note the caveats — it's a third party with rate
+   limits, a possible API key, and a small freshness/trust gap — and cite it as
+   the source.
+4. **Fall back to reputable mirrors/aggregators** (Vellum, BenchLM, Kilo,
+   board-specific sites like deepswe.net, provider pages) — lowest fidelity, last
+   resort.
+
+If you can only get partial data for a required board, note the gap rather than
+inventing numbers.
 
 Record each number with its source and the date. If a model lacks a public
 benchmark for this category, you cannot rank it for quality — note it as
