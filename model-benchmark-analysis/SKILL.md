@@ -196,6 +196,18 @@ ranked candidate via its SDK/CLI access and explain the access path.
   vendor-run ones; long-horizon/agentic evals over single-shot; more recent runs
   over older; then general reasoning. State which signal you trusted and why,
   since the choice is judgment, not arithmetic.
+- **The order must be consistent with the numbers you cite.** Before finalizing
+  each list, scan adjacent pairs: if a lower-ranked model *beats* the one above it
+  on the benchmark you weighted highest — or on most of the benchmarks you cite —
+  then either reorder, or keep the order and **state the specific countervailing
+  evidence** that justifies it (e.g. "ranked below X despite a higher DeepSWE score
+  because it trails on CursorBench and SWE-Bench Pro, which carry more weight for
+  agentic coding"). An unexplained inversion — placing a model lower than another
+  it outscores on the very metric you quote — reads as an error and discredits the
+  whole ranking. Don't let general reputation override the measured numbers in
+  front of you: if the only evidence you have puts A above B, rank A above B, and
+  if you believe B is actually better, go find the benchmark that shows it and cite
+  it rather than asserting it.
 - State the weighting method in plain language. Don't invent false decimals — if
   evidence is thin, say the ranking is approximate.
 
