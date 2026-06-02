@@ -120,31 +120,38 @@ Use web search/fetch to pull live figures from:
 (Artificial Analysis, the OpenRouter rankings page, many arenas) are JavaScript
 single-page apps: a plain HTTP fetch returns the empty HTML shell because the data
 is loaded by JS *after* the page renders. Web-fetch tools generally don't run
-JavaScript, so they see no tables. Work **down this ladder** and record which path
-produced each number:
+JavaScript, so they see no tables.
 
-1. **Drive a real browser if one is connected.** A browser-automation tool (a
-   Chrome MCP, Playwright, computer-use, etc.) loads the page, runs its JS, and
-   lets you read the *rendered* DOM/text — the most faithful option. Detect what's
-   available first; don't assume a browser exists, since this skill also runs
-   headless (weekly automations, subagents).
-2. **Fetch the underlying data endpoint directly.** SPAs pull their numbers from a
-   backend the browser calls in the background — a JSON `/api/...` route, a Next.js
-   `/_next/data/<buildId>/<page>.json` file, or a GraphQL endpoint. Find it (view
-   source, or inspect network requests) and GET that JSON with a plain fetch — no
-   JS engine needed, and the data is already structured. Often the most reliable
-   path.
-3. **Route through a rendering reader proxy.** A server-side reader that executes
-   JS and returns clean text (e.g. prefixing the URL as `https://r.jina.ai/<url>`)
-   can work from a plain fetch. Note the caveats — it's a third party with rate
-   limits, a possible API key, and a small freshness/trust gap — and cite it as
-   the source.
-4. **Fall back to reputable mirrors/aggregators** (Vellum, BenchLM, Kilo,
-   board-specific sites like deepswe.net, provider pages) — lowest fidelity, last
-   resort.
+**Default: fetch through a rendering reader proxy.** Prefix the URL —
+`https://r.jina.ai/<full-url>` — to get a server-side reader that executes the JS
+and returns clean text. This works from an ordinary fetch with **no browser**, so
+it behaves the same in every environment this skill runs in (here, headless
+subagents, weekly automations). That portability is why it's the default.
 
-If you can only get partial data for a required board, note the gap rather than
-inventing numbers.
+Escalate past the default when it's not ideal:
+- **Prefer a connected browser tool when one is available** (a Chrome MCP,
+  Playwright, computer-use). Reading the rendered DOM directly is more faithful and
+  avoids the proxy's third-party layer and any cache staleness — use it over the
+  proxy when present, and as the fix if the proxy is rate-limited or returns
+  garbled/stale data.
+- **Go to the underlying data endpoint** when you need the freshest or most
+  structured numbers: SPAs pull data from a JSON `/api/...` route, a Next.js
+  `/_next/data/<buildId>/<page>.json` file, or a GraphQL endpoint you can GET
+  directly.
+- **Mirrors/aggregators** (Vellum, BenchLM, Kilo, board-specific sites like
+  deepswe.net, provider pages) are the last resort.
+
+Whatever path you use:
+- **Cite the original board** as the source of each figure — the data originates
+  there; mention the retrieval path only if it matters.
+- **Watch for stale caches.** A reader proxy may serve an older render. If a board
+  shows model versions you know are out of date, suspect a cache and re-verify via
+  a browser or the data endpoint.
+- **Mind rate limits on big sweeps.** A single category run is a few fetches and
+  fine on the free tier; a full multi-category automation may need request spacing
+  or a Jina API key.
+- If you still can't get data for a required board, note the gap rather than
+  inventing numbers.
 
 Record each number with its source and the date. If a model lacks a public
 benchmark for this category, you cannot rank it for quality — note it as

@@ -21,10 +21,12 @@ starting set, not a closed universe — search for newer task-specific boards to
 
 > **Heads-up — these are JavaScript-rendered.** Artificial Analysis and the
 > OpenRouter rankings page load their tables via JS, so a plain fetch returns an
-> empty shell with no data. See **SKILL.md step 3 ("Client-rendered boards")** for
-> the escalation ladder: drive a real browser tool first, then fetch the site's
-> underlying JSON/data endpoint, then a rendering reader proxy, then mirrors — and
-> cite whichever source actually produced each number.
+> empty shell. **Default to a rendering reader proxy** (`https://r.jina.ai/<url>`),
+> which works from a plain fetch in any environment; prefer a connected browser
+> tool when one is available, or the board's underlying JSON endpoint when you need
+> the freshest data. See **SKILL.md step 3 ("Client-rendered boards")** for the
+> full ladder and caveats. Always cite the original board for each figure, and
+> watch for stale proxy caches.
 
 ## Coding / software engineering
 
