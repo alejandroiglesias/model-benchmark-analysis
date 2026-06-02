@@ -128,6 +128,14 @@ and returns clean text. This works from an ordinary fetch with **no browser**, s
 it behaves the same in every environment this skill runs in (here, headless
 subagents, weekly automations). That portability is why it's the default.
 
+Set expectations, though: the proxy reliably returns article/blog/prose pages and
+a board's *headline* figures, but the **interactive SPA leaderboard widgets often
+don't serialize their full table rows** through it (observed on the Artificial
+Analysis and OpenRouter leaderboard pages). So the proxy gets you the top result
+and methodology text, but for the *complete ranked table* you'll usually still need
+to escalate — a board's own article page often renders fully via the proxy, or use
+a browser tool, the underlying data endpoint, or mirrors.
+
 Escalate past the default when it's not ideal:
 - **Prefer a connected browser tool when one is available** (a Chrome MCP,
   Playwright, computer-use). Reading the rendered DOM directly is more faithful and
@@ -259,6 +267,11 @@ used, normalization method, weighting method, pricing assumptions, the budget
 eligibility rule, image/video budget rules, and limitations), then the same
 sections above. Keep per-item rationales but you may expand the "Benchmarks used"
 into a fuller "Relevant Benchmarks Used" paragraph as in a formal report.
+
+A model may legitimately appear in **both** the Free and Budget lists — e.g. one
+that's on a free hosted route *and* has a paid route under the cap. When it does,
+list it in both and **label the route explicitly** in each (e.g. "via OpenRouter
+`:free`" vs "paid route $X/$Y") so the two entries aren't read as a contradiction.
 
 Always include the source citations (links) and the date checked, in both modes.
 

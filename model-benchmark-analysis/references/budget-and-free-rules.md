@@ -109,3 +109,9 @@ not controlled task quality.
 - Prefer the provider's first-party pricing; use aggregators (e.g. Artificial
   Analysis, Vellum, OpenRouter) to cross-check, noting that aggregators sometimes
   list blended or provider-specific prices.
+- **Blended prices can't clear the two-part cap.** The budget test is *input ≤
+  $2.50 AND output ≤ $9* — two separate numbers. A single blended/average price
+  from an aggregator can't satisfy it (a model could be blended-cheap but have
+  output > $9). If you only have a blended figure, mark that model's budget
+  eligibility **provisional** and say so in the output, then confirm the separate
+  standard input/output rates from the provider before relying on it.
