@@ -1,6 +1,6 @@
 # model-benchmark-analysis
 
-A Claude Code skill for live-researched AI model benchmark rankings per task or agent role.
+A skill for live-researched AI model benchmark rankings per task or agent role.
 
 Given a task category (e.g. `coding`, `web browsing`, `data analysis`) or a freeform agent role (e.g. `ad creative producer agent`, `infoproduct book writer agent`), this skill:
 
@@ -13,19 +13,23 @@ Given a task category (e.g. `coding`, `web browsing`, `data analysis`) or a free
 
 ## Usage
 
-```
+```text
 /model-benchmark-analysis coding
 /model-benchmark-analysis web browsing
 /model-benchmark-analysis trading --full
 /model-benchmark-analysis ad creative producer agent
 ```
 
+You can also ask naturally, for example: "Which model should I use for a customer support triage agent?"
+
 **Flags:**
+
 - `--full` — emit complete methodology preamble (sources, normalization, weighting, pricing assumptions, budget rules, limitations) in addition to the default focused report.
 
 ## Output
 
 Focused report (default):
+
 - Date checked
 - Capability read & benchmarks used (how weighted)
 - Top 5 — Absolute Performance
@@ -39,6 +43,7 @@ All figures are cited with source links. Models priced or accessed via SDKs/CLIs
 ## Predefined categories
 
 ### Task categories
+
 - Coding
 - Web browsing
 - Data analysis
@@ -53,6 +58,7 @@ All figures are cited with source links. Models priced or accessed via SDKs/CLIs
 - Creative writing
 
 ### Agent roles
+
 - Orchestrator agent
 - Scout agent
 - Diagnoser agent
@@ -63,7 +69,9 @@ All figures are cited with source links. Models priced or accessed via SDKs/CLIs
 - Mobile agent
 
 ### Novel tasks
+
 If your argument doesn't match the predefined list, the skill decomposes it into weighted capability dimensions and maps them to benchmark families. Examples:
+
 - `ad creative producer agent` → marketing copy (45%) + image generation (30%) + brand taste (15%) + tool use (10%)
 - `infoproduct book writer agent` → long-form writing (50%) + instruction following (25%) + long-context (15%) + factual reliability (10%)
 - `customer support triage agent` → instruction following (35%) + tool use (30%) + tone/empathy (20%) + latency/cost (15%)
@@ -79,7 +87,9 @@ If your argument doesn't match the predefined list, the skill decomposes it into
 ## Special rules
 
 ### Budget eligibility
+
 Text/reasoning/coding/agent models qualify for the Budget-Eligible list only if **both** conditions hold:
+
 - Input ≤ $2.50 USD per 1M tokens
 - Output ≤ $9.00 USD per 1M tokens
 
@@ -88,14 +98,16 @@ Text/reasoning/coding/agent models qualify for the Budget-Eligible list only if 
 For image generation: ≤ $0.08 per 1024-equivalent image or edit (or comparable token-equivalent).
 For video generation: ≤ $6 per generated minute.
 
-After filtering, rank survivors by normalized category score — not by score-per-dollar, and not by "second-best expensive frontier." The list answers: *"Among models clearly within the affordable tier, which perform best?"*
+After filtering, rank survivors by normalized category score — not by score-per-dollar, and not by "second-best expensive frontier." The list answers: _"Among models clearly within the affordable tier, which perform best?"_
 
 ### Free eligibility
+
 A model qualifies for the Free list only if it is available on a genuinely free hosted endpoint (e.g. OpenRouter `:free`, OpenCode Zen free tier, NVIDIA preview endpoints) **and** has a public benchmark for the category.
 
-"Free" means a free *hosted* endpoint, not "open weights." Open-weight models that are only free via self-hosting go in the Budget list (if their hosted price is under cap).
+"Free" means a free _hosted_ endpoint, not "open weights." Open-weight models that are only free via self-hosting go in the Budget list (if their hosted price is under cap).
 
 ### OpenRouter usage
+
 The per-domain rankings at OpenRouter are used **only as a secondary, optional tie-breaker** (~5–10% weighting max). It reflects user/app mix, price effects, routing defaults, and availability — not controlled task quality. Never treat it as primary evidence.
 
 ## Files
@@ -107,9 +119,8 @@ The per-domain rankings at OpenRouter are used **only as a secondary, optional t
 
 ## Installation
 
-1. Clone this repo or copy `model-benchmark-analysis/` (the skill directory, not the root).
-2. Place it in `~/.claude/skills/model-benchmark-analysis/`.
-3. The `/model-benchmark-analysis` slash command will be available in Claude Code.
+1. Run `npx skills add alejandroiglesias/model-benchmark-analysis`.
+2. Invoke it as `/model-benchmark-analysis coding` or ask naturally.
 
 ## Example output
 

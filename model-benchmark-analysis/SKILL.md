@@ -1,20 +1,16 @@
 ---
 name: model-benchmark-analysis
 description: >-
-  Research current AI model benchmarks live and rank the best models for ONE
-  specific task or agent role given as an argument. Examples: "coding", "web
-  browsing", "data analysis", "image generation", "trading", "OCR", "creative
-  writing", or freeform agent roles like "ad creative producer agent",
-  "infoproduct book writer agent", or "customer support triage agent". Runs a
-  deep web investigation across benchmark leaderboards (Artificial Analysis,
-  Vellum, Scale, plus task-specific boards) and outputs three Top-5 rankings —
-  Absolute performance, Budget-eligible near-frontier, and Free — followed by a
-  single final model recommendation with reasoning. Use this whenever the user
-  runs /model-benchmark-analysis, or asks which model or LLM is best for a given
-  task or agent, asks to rank or compare models for a use case, asks for the
-  best cheap/budget or best free model for something, or asks which model to
-  pick for an agent role. Always prefer this over answering from memory, because
-  model rankings and API pricing change constantly and must be verified live.
+  Research current AI model benchmarks live and rank the best models for one
+  specific task or agent role. Use when the user invokes
+  $model-benchmark-analysis, asks which model or LLM is best for coding, web
+  browsing, data analysis, image generation, video, trading, OCR, creative
+  writing, support triage, or another agent role, asks to rank or compare models
+  for a use case, or asks for the best cheap, budget, or free model. Consult
+  current benchmark leaderboards and pricing pages, then return Top-5 rankings
+  for Absolute performance, Budget-eligible near-frontier, and Free models,
+  followed by one final recommendation with cited reasoning. Prefer this over
+  memory because model rankings and API prices change constantly.
 ---
 
 # Model Benchmark Analysis
@@ -35,10 +31,10 @@ overall smarts.
 
 The argument is the task/role to analyze, optionally followed by flags:
 
-- `/model-benchmark-analysis coding`
-- `/model-benchmark-analysis web browsing`
-- `/model-benchmark-analysis ad creative producer agent`
-- `/model-benchmark-analysis trading --full`
+- `$model-benchmark-analysis coding`
+- `$model-benchmark-analysis web browsing`
+- `$model-benchmark-analysis ad creative producer agent`
+- `$model-benchmark-analysis trading --full`
 
 **Flags:**
 - `--full` — also emit the complete methodology preamble (sources, normalization,
