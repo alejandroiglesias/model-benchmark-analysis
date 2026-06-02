@@ -1,0 +1,50 @@
+# Model Benchmark Analysis — Coding
+
+Date checked: 2026-06-02
+
+**Capability read:** Single, well-defined category (agentic software engineering). Ranked on direct agentic/SWE coding evals; general reasoning used only as a tie-breaker.
+
+**Benchmarks used & weighting:** Primary weight on the required coding boards — [Artificial Analysis Coding Index](https://artificialanalysis.ai/models/capabilities/coding) and [Coding Agent Index](https://artificialanalysis.ai/agents/coding-agents), [CursorBench v3.1](https://benchlm.ai/benchmarks/cursorBench31), and [DeepSWE](https://deepswe.net/) — plus [SWE-Bench Pro / Verified](https://www.swebench.com/) and Terminal-Bench as corroboration. The latest Cursor Composer (2.5) is included as a candidate. Boards mostly agree on the top tier but disagree on internal order (e.g. DeepSWE puts GPT-5.5 well clear; CursorBench, run by Cursor, puts Opus 4.7 first; SWE-Bench Pro puts Opus 4.8 first), so positions below are directional, not exact. Scores are min–max comparable within a board but come from different scaffolds, so cross-board absolute numbers are not directly comparable. OpenRouter per-domain usage (intended only as a ~5–10% tie-breaker) could not be extracted live today (JS-rendered page), so it is not used.
+
+## Top 5 — Absolute Performance
+
+1. **GPT-5.5 (xhigh)** — Coding Index leader at **59** ([Artificial Analysis](https://artificialanalysis.ai/models/capabilities/coding)); **DeepSWE 70% ±4%** (clear #1) ([deepswe.net](https://deepswe.net/)); SWE-Bench Verified ~88.7% and Terminal-Bench 2.1 78.2% ([Vellum](https://www.vellum.ai/blog/claude-opus-4-8-benchmarks-explained)). Strongest on the long-horizon agentic evals.
+2. **Claude Opus 4.8 [max]** — SWE-Bench Pro leader **69.2%** and SWE-Bench Verified **88.6%**, Terminal-Bench 2.1 74.6% ([Vellum](https://www.vellum.ai/blog/claude-opus-4-8-benchmarks-explained)); **DeepSWE 58% ±5%** (#2, improved over 4.7 at lower cost) ([deepswe.net](https://deepswe.net/)). Best on repo-level Pro tasks; released 2026-05-28.
+3. **Claude Opus 4.7 (Adaptive)** — **CursorBench v3.1 leader at 64.8%** ([BenchLM](https://benchlm.ai/benchmarks/cursorBench31)); DeepSWE 54%, SWE-Bench Verified 87.6%, SWE-Bench Pro 64.3% ([Vellum](https://www.vellum.ai/blog/claude-opus-4-8-benchmarks-explained)). Still tops Cursor's own agentic harness.
+4. **Gemini 3.1 Pro** — SWE-Bench Verified **80.6%**, SWE-Bench Pro 54.2% ([Vellum](https://www.vellum.ai/blog/claude-opus-4-8-benchmarks-explained)); strong on AA Coding Index but trails the three above on agentic Pro/DeepSWE tasks ([deepswe.net](https://deepswe.net/) DeepSWE 10%).
+5. **Gemini 3.5 Flash** — Released 2026-05-19; Google reports it **outperforms Gemini 3.1 Pro on coding and agentic benchmarks** at ~4× speed ([Gemini pricing/notes](https://devtk.ai/en/models/gemini-3-5-flash/)); CursorBench 49.8% ([BenchLM](https://benchlm.ai/benchmarks/cursorBench31)), Kilo coding 64.7% ([Kilo](https://kilo.ai/leaderboard)). Edges out the heavier field on price-adjusted agentic coding and is the highest non-frontier-priced coder.
+
+> Note: **Claude Mythos Preview** posts the highest public coding numbers anywhere (SWE-Bench Verified 93.9%, SWE-Bench Pro 77.8%, Terminal-Bench 82%), but it is **not publicly available** — access is limited to Anthropic's invitation-only Project Glasswing, with no public API or pricing ([NxCode](https://www.nxcode.io/resources/news/claude-mythos-preview-anthropic-most-powerful-model-2026)). It is therefore excluded from the rankings (you cannot select it) and noted here only for completeness.
+
+## Top 5 — Budget-Eligible Near-Frontier
+_Price cap: input ≤ $2.50/M, output ≤ $9/M (standard API). Frontier models GPT-5.5 ($5/$30), Opus 4.8/4.7 ($5/$25), and Gemini 3.1 Pro ($2/$12) all FAIL on output and are excluded._
+
+1. **Gemini 3.5 Flash** ($1.50 in / $9.00 out — [pricing](https://devtk.ai/en/models/gemini-3-5-flash/)) — Sits exactly at the output cap. Best coder in the affordable tier: Google reports it beats Gemini 3.1 Pro on coding/agentic evals ([notes](https://devtk.ai/en/models/gemini-3-5-flash/)); Kilo coding 64.7% ([Kilo](https://kilo.ai/leaderboard)), CursorBench 49.8% ([BenchLM](https://benchlm.ai/benchmarks/cursorBench31)).
+2. **Kimi K2.6** ($0.95 in / $4.00 out — [pricing summary](https://yage.ai/share/ollama-cloud-vs-api-vs-subscriptions-en-20260428.html)) — Open-weight; leads among open models on SWE-Bench Pro; DeepSWE 24% ([deepswe.net](https://deepswe.net/)), CursorBench v3.1 47.6% ([BenchLM](https://benchlm.ai/benchmarks/cursorBench31)), Kilo 54.4% ([Kilo](https://kilo.ai/leaderboard)).
+3. **GLM-5.1** ($1.40 in / $4.40 out — [pricing summary](https://yage.ai/share/ollama-cloud-vs-api-vs-subscriptions-en-20260428.html)) — MIT-licensed; DeepSWE 18% ([deepswe.net](https://deepswe.net/)), Kilo coding 49.4% ([Kilo](https://kilo.ai/leaderboard)). Solid agentic open coder with a clean license.
+4. **DeepSeek V4 Pro** (~$0.435 in / $0.87 out, standard after 2026-05-31 promo end — [DeepSeek pricing](https://api-docs.deepseek.com/quick_start/pricing)) — SWE-Bench Verified ~80.6%, LiveCodeBench 93.5%, LiveBench Coding ~70 ([aimadetools](https://www.aimadetools.com/blog/best-open-source-coding-models-2026/)); DeepSWE 8% — strong on code-gen, weaker on long-horizon agentic tasks. Cheapest of the qualifying set.
+5. **MiMo-V2.5-Pro** (~$0.43 in/out — [Kilo](https://kilo.ai/leaderboard)) — DeepSWE 19% ([deepswe.net](https://deepswe.net/)), Kilo coding 47.6% ([Kilo](https://kilo.ai/leaderboard)). Rounds out the tier; a notch below the four above on agentic evals.
+
+_Note on Cursor Composer 2.5: cheap on paper ($0.50/$2.50 standard) and CursorBench 63.2% ([BenchLM](https://benchlm.ai/benchmarks/cursorBench31)), but it has **no public API** — it runs only inside Cursor's IDE/CLI/subscription ([Cursor](https://cursor.com/blog/composer-2-5)). It does not qualify as a standalone budget API model, so it is excluded from this list and flagged here instead._
+
+## Top 5 — Free
+_Free via: [OpenRouter free-models collection](https://openrouter.ai/collections/free-models) (`:free` endpoints, no card; ~20 req/min, daily caps). Models must also have a public coding benchmark._
+
+1. **Kimi K2.6 (`:free`)** — Free on OpenRouter (262K context, "designed for long-horizon coding") ([OpenRouter](https://openrouter.ai/collections/free-models)); strongest benchmark profile of any free option here — leads open models on SWE-Bench Pro, DeepSWE 24% ([deepswe.net](https://deepswe.net/)), CursorBench 47.6% ([BenchLM](https://benchlm.ai/benchmarks/cursorBench31)).
+2. **Qwen3-Coder-Next (`:free` / open weights)** — Free on OpenRouter; **>70% SWE-Bench Verified** with the SWE-Agent scaffold and SWE-Bench-Pro performance rivaling models 10–20× larger ([Qwen3-Coder-Next report](https://arxiv.org/html/2603.00729v1)). Best efficiency-per-parameter of the free set.
+3. **GLM 4.5 Air (`:free`)** — Free on OpenRouter (131K context, "purpose-built for agent-centric applications," thinking/non-thinking modes) ([OpenRouter](https://openrouter.ai/collections/free-models)). Lighter than GLM-5.1 but has public SWE-bench coding results; reliable agentic free option.
+4. **gpt-oss-120b (`:free`)** — Free on OpenRouter (131K context, native tool use / function calling, Apache 2.0) ([OpenRouter](https://openrouter.ai/collections/free-models)); appears on public SWE-bench coding leaderboards ([Fireworks roundup](https://fireworks.ai/blog/best-llms-for-coding)). Good tool-use behavior for an open model.
+5. **Poolside Laguna M.1 (`:free`)** — Free on OpenRouter (128K context, "optimized for complex software engineering tasks") ([OpenRouter](https://openrouter.ai/collections/free-models)); has a public coding score (Kilo coding 25.4% — clearly the weakest of the five) ([Kilo](https://kilo.ai/leaderboard)). Included to complete the list, but well behind 1–4.
+
+_All five carry OpenRouter free-tier rate limits (≈20 req/min, 50–1000 req/day) and routing/availability caveats; for production volume the paid endpoints of the same models (see Budget list) are more reliable. Note: DeepSeek V4 Pro is open-weight (MIT) and "free" only via self-hosting — on OpenRouter it is a **paid** model, so it is in the Budget list, not here._
+
+## Final Pick
+
+**GPT-5.5 (xhigh)** — Coding is high-stakes and quality-critical (a wrong patch costs more than the tokens), so the **Absolute tier** governs. GPT-5.5 is the most consistent #1 across the agentic boards that matter most for this task — Coding Index leader (59) and a commanding DeepSWE result (70% vs 58% for the next model) — which is exactly the long-horizon, multi-file regime real coding agents operate in. If your workload is repo-level refactors graded like SWE-Bench Pro, **Claude Opus 4.8** is a defensible co-pick (Pro leader at 69.2%). For cost- or volume-sensitive coding that still needs to be good, switch to **Gemini 3.5 Flash** from the Budget list (the only near-frontier coder under the cap, at $1.50/$9). A free model is not recommended as the default for serious coding — use the Free tier only for high-volume, low-risk scaffolding behind review.
+
+## Caveats
+
+- **Benchmarks ≠ production.** Scaffold, prompt, tool wiring, retry policy, and context management routinely reorder these models in real workflows; CursorBench is even run by the vendor (Cursor). Treat positions as directional.
+- **Cross-board numbers aren't directly comparable** (different harnesses/runs), and several frontier scores are vendor-reported. Prices are standard API rates verified 2026-06-02 and exclude batch/flex/cached discounts; DeepSeek V4 Pro reflects post-promo (2026-05-31) standard pricing.
+- **Availability gaps:** Claude Mythos Preview (top raw scores) is invitation-only with no public API; Cursor Composer 2.5 has no public API. Both are excluded from the selectable rankings for that reason.
+- **OpenRouter usage signal not used:** the per-domain rankings page didn't render extractable data today, so the optional adoption tie-breaker was omitted rather than guessed.
